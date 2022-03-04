@@ -25,6 +25,11 @@ std::wstring ProviderFolderLocations::s_clientFolder;
 
 bool ProviderFolderLocations::Init(_In_opt_ LPCWSTR serverFolder, _In_opt_ LPCWSTR clientFolder)
 {
+	// Hardcoding the server and client directory path
+	s_serverFolder = L"C:\\Users\\dvaclgn1\\Desktop\\Neeraj\\CloudMirror\\Server";
+	s_clientFolder = L"C:\\Users\\dvaclgn1\\Desktop\\Neeraj\\CloudMirror\\Client";
+
+	/*
     if (serverFolder)
     {
         s_serverFolder = serverFolder;
@@ -42,6 +47,7 @@ bool ProviderFolderLocations::Init(_In_opt_ LPCWSTR serverFolder, _In_opt_ LPCWS
     {
         s_clientFolder = PromptForFolderPath(L"\"Syncroot (Client)\" Location");
     }
+	*/
 
     auto result{ false };
     if (!s_serverFolder.empty() && !s_clientFolder.empty())
@@ -63,14 +69,14 @@ std::wstring ProviderFolderLocations::PromptForFolderPath(_In_ PCWSTR title)
     winrt::check_hresult(fileOpen->SetTitle(title));
 
     // Restore last location used
-    auto settings = winrt::Windows::Storage::ApplicationData::Current().LocalSettings().Values();
+    /*auto settings = winrt::Windows::Storage::ApplicationData::Current().LocalSettings().Values();
     if (settings.HasKey(title))
     {
         auto lastLocation = winrt::unbox_value<winrt::hstring>(settings.Lookup(title));
         winrt::com_ptr<IShellItem> lastItem;
         winrt::check_hresult(SHCreateItemFromParsingName(lastLocation.c_str(), nullptr, __uuidof(lastItem), lastItem.put_void()));
         winrt::check_hresult(fileOpen->SetFolder(lastItem.get()));
-    }
+    }*/
 
     try
     {
@@ -88,7 +94,7 @@ std::wstring ProviderFolderLocations::PromptForFolderPath(_In_ PCWSTR title)
     winrt::check_hresult(item->GetDisplayName(SIGDN_FILESYSPATH, winrt::put_abi(path)));
 
     // Save the last location
-    settings.Insert(title, winrt::box_value(path.data()));
+    //settings.Insert(title, winrt::box_value(path.data()));
 
     return std::wstring(path.data());
 }
