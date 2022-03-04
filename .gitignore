@@ -1,0 +1,13 @@
+
+#ignore build specific files from git tracking
+.vs/
+CloudMirror/CloudMirror.vcxproj.user
+CloudMirror/Debug/
+CloudMirror/Generated Files/
+CloudMirrorPackage/bin/
+CloudMirrorPackage/obj/
+Debug/
+UpgradeLog.htm
+packages/
+tatus
+
